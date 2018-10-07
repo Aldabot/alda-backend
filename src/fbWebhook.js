@@ -11,6 +11,7 @@ const fbWebhook = async (event, context) => {
       const sender = messaging.sender
       try {
         await sendTextMsg('hello', sender.id)
+        await sendBtnMsg(sender.id)
 
         return {
           statusCode: 200,
@@ -35,6 +36,33 @@ const sendTextMsg = (text, recipientId) => {
       messaging_type: 'RESPONSE',
       recipient: { id: recipientId },
       message: { text }
+    }
+  })
+}
+
+const sendBtnMsg = (recipientId) => {
+  return axios({
+    method: 'post',
+    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
+    data: {
+      messaging_type: 'RESPONSE',
+      recipient: { id: recipientId },
+      message: {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'button',
+            text: 'What do you want to do next?',
+            buttons: [
+              {
+                type:'web_url',
+                url:'https://www.messenger.com',
+                title:'Visit Messenger'
+              }
+            ]
+          }
+        }
+      }
     }
   })
 }
