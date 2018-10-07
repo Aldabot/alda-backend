@@ -21,6 +21,15 @@ provider:
   name: aws
   runtime: nodejs8.10
 
+plugins:
+  - serverless-webpack
+  - serverless-offline
+   
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -55,11 +64,21 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  fbWebhookVerify:
+    handler: handler.fbWebhookVerify
+    events:
+      - http:
+          path: fbWebhook
+          method: get
+  fbWebhook:
+    handler: handler.fbWebhook
+    events:
+      - http:
+          path: fbWebhook
+          method: post
 
 #    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
+#    NOTE: Plea fskse make sure to change your handler code to work with those events
 #    Check the event documentation for details
 #    events:
 #      - http:
