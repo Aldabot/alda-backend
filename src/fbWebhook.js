@@ -1,17 +1,43 @@
 'use strict';
 import axios from 'axios'
+import AWS from 'aws-sdk'
+
+// docClient
+let docClientOptions = {
+  region: 'eu-west-1'
+}
+if(process.env.IS_OFFLINE) {
+  docClientOptions = {
+    region: 'localhost',
+    endpoint: 'http://localhost:8000'
+  }
+}
+const docClient = new AWS.DynamoDB.DocumentClient(docClientOptions)
 
 const fbWebhook = async (event, context) => {
+  // verify FB webhook
+  console.log(event)
+  if(needsVerify(event))
+    return {
+      statusCode: 200,
+      body: event.queryStringParameters['hub.challenge']
+    }
+
   const entries = JSON.parse(event.body).entry
   for(const entry of entries) {
     const messaging = entry.messaging[0]
+    const sender = messaging.sender
 
     // messages
     if(messaging.message) {
-      const sender = messaging.sender
       try {
-        await sendTextMsg('hello', sender.id)
-        await sendBtnMsg(sender.id)
+        await sendTextMsg(sender.id, 'hello')
+        await sendBtnMsg(
+          sender.id,
+          'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
+          'https://google.com',
+          'Click para syncronizar'
+        )
 
         return {
           statusCode: 200,
@@ -20,15 +46,49 @@ const fbWebhook = async (event, context) => {
       }
       catch(e) {
         return {
-          statusCode: 200,
+          statusCode: 500,
           body: JSON.stringify(e.response)
         }
       }
     }
+
+    if(messaging.optin) {
+      const ref = messaging.optin.ref
+      var params = {
+        TableName: 'alda-user',
+        Item: {
+          PSID: sender.id,
+          ref
+        }
+      };
+
+      docClient.put(params, function(err, data) {
+        if (err) {
+          console.log("Error", err);
+          return {
+            statusCode: 500,
+            body: JSON.stringify(err)
+          }
+        } else {
+          console.log("Success", data);
+          return {
+            statusCode: 200,
+            body: JSON.stringify({})
+          }
+        }
+      });
+
+    }
   }
 }
 
-const sendTextMsg = (text, recipientId) => {
+const needsVerify = (event) => {
+  if(event.queryStringParameters['hub.mode'])
+    return true
+  return false
+}
+
+const sendTextMsg = (recipientId, text) => {
   return axios({
     method: 'post',
     url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
@@ -40,7 +100,7 @@ const sendTextMsg = (text, recipientId) => {
   })
 }
 
-const sendBtnMsg = (recipientId) => {
+const sendBtnMsg = (recipientId, text, url, title) => {
   return axios({
     method: 'post',
     url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
@@ -52,12 +112,13 @@ const sendBtnMsg = (recipientId) => {
           type: 'template',
           payload: {
             template_type: 'button',
-            text: 'What do you want to do next?',
+            text,
             buttons: [
               {
                 type:'web_url',
-                url:'https://www.messenger.com',
-                title:'Visit Messenger'
+                url,
+                title,
+                webview_height_ratio: 'full'
               }
             ]
           }

@@ -6,12 +6,18 @@ provider:
 
 plugins:
   - serverless-webpack
+  - serverless-dynamodb-local
   - serverless-offline
    
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+  dynamodb:
+    start:
+      port: 8000
+      migrate: true
+      inMemory: true
 
 functions:
   fbWebhook:
@@ -20,3 +26,22 @@ functions:
       - http:
           method: POST
           path: fbWebhook
+      - http:
+          method: GET
+          path: fbWebhook
+
+resources:
+  Resources:
+    userTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: alda-user
+        AttributeDefinitions:
+          - AttributeName: PSID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PSID
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1 
+          WriteCapacityUnits: 1
