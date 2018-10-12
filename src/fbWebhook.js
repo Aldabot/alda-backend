@@ -35,7 +35,7 @@ const fbWebhook = async (event, context) => {
         await sendBtnMsg(
           sender.id,
           'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-          'https://google.com',
+          'https://cfe36fea.ngrok.io/',
           'Click para syncronizar'
         )
 
@@ -83,7 +83,7 @@ const fbWebhook = async (event, context) => {
 }
 
 const needsVerify = (event) => {
-  if(event.queryStringParameters['hub.mode'])
+  if(event.queryStringParameters && event.queryStringParameters['hub.mode'])
     return true
   return false
 }
@@ -118,7 +118,8 @@ const sendBtnMsg = (recipientId, text, url, title) => {
                 type:'web_url',
                 url,
                 title,
-                webview_height_ratio: 'full'
+                webview_height_ratio: 'full',
+                messenger_extensions: true
               }
             ]
           }

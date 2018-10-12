@@ -29,6 +29,14 @@ functions:
       - http:
           method: GET
           path: fbWebhook
+  dialogflow:
+    handler: src/handler.dialogflow
+    events:
+      - http:
+          method: POST
+          path: dialogflow
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: './gcloud.json'
 
 resources:
   Resources:
