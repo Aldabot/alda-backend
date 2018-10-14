@@ -31,19 +31,3 @@ functions:
           path: dialogflow
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: './gcloud.json'
-
-resources:
-  Resources:
-    userTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: alda-user
-        AttributeDefinitions:
-          - AttributeName: PSID
-            AttributeType: S
-        KeySchema:
-          - AttributeName: PSID
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1 
-          WriteCapacityUnits: 1

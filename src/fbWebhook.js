@@ -1,6 +1,17 @@
 'use strict';
 import axios from 'axios'
 import AWS from 'aws-sdk'
+import { request, GraphQLClient } from 'graphql-request'
+
+const client = new GraphQLClient('https://uwl3s322de.execute-api.eu-west-1.amazonaws.com/dev/')
+const CREATE_USER = `
+  mutation ( $psid: String! ) {
+    createUser( psid: $psid ) {
+      id
+    }
+  }
+`
+// client.request(CREATE_USER, { psid: '123'}).then(res => console.log(res)).catch(err => console.error(err))
 
 // docClient
 let docClientOptions = {
@@ -50,34 +61,6 @@ const fbWebhook = async (event, context) => {
           body: JSON.stringify(e.response)
         }
       }
-    }
-
-    if(messaging.optin) {
-      const ref = messaging.optin.ref
-      var params = {
-        TableName: 'alda-user',
-        Item: {
-          PSID: sender.id,
-          ref
-        }
-      };
-
-      docClient.put(params, function(err, data) {
-        if (err) {
-          console.log("Error", err);
-          return {
-            statusCode: 500,
-            body: JSON.stringify(err)
-          }
-        } else {
-          console.log("Success", data);
-          return {
-            statusCode: 200,
-            body: JSON.stringify({})
-          }
-        }
-      });
-
     }
   }
 }
