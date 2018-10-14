@@ -6,18 +6,12 @@ provider:
 
 plugins:
   - serverless-webpack
-  - serverless-dynamodb-local
   - serverless-offline
    
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
-  dynamodb:
-    start:
-      port: 8000
-      migrate: true
-      inMemory: true
 
 functions:
   fbWebhook:

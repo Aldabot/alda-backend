@@ -35,7 +35,7 @@ const fbWebhook = async (event, context) => {
         await sendBtnMsg(
           sender.id,
           'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-          'https://cfe36fea.ngrok.io/',
+          'https://f87fbf4c.ngrok.io',
           'Click para syncronizar'
         )
 
