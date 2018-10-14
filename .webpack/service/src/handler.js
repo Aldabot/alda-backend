@@ -94,7 +94,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var graphql_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! graphql-request */ \"graphql-request\");\n/* harmony import */ var graphql_request__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(graphql_request__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _webhookEvents_messagingMessage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webhookEvents/messagingMessage */ \"./src/webhookEvents/messagingMessage.js\");\n\n\n\n\nconst client = new graphql_request__WEBPACK_IMPORTED_MODULE_0__[\"GraphQLClient\"]('https://uwl3s322de.execute-api.eu-west-1.amazonaws.com/dev/');\nconst CREATE_USER = `\n  mutation ( $psid: String! ) {\n    createUser( psid: $psid ) {\n      id\n    }\n  }\n`; // client.request(CREATE_USER, { psid: '123'}).then(res => console.log(res)).catch(err => console.error(err))\n// docClient\n\nlet docClientOptions = {\n  region: 'eu-west-1'\n};\n\nif (process.env.IS_OFFLINE) {\n  docClientOptions = {\n    region: 'localhost',\n    endpoint: 'http://localhost:8000'\n  };\n}\n\nconst fbWebhook = async (event, context) => {\n  // verify FB webhook\n  console.log(event);\n  if (needsVerify(event)) return {\n    statusCode: 200,\n    body: event.queryStringParameters['hub.challenge']\n  };\n  const entries = JSON.parse(event.body).entry;\n\n  for (const entry of entries) {\n    const messaging = entry.messaging[0];\n    const sender = messaging.sender; // messages\n\n    try {\n      if (messaging.message) await Object(_webhookEvents_messagingMessage__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(sender);\n      return {\n        statusCode: 200,\n        body: JSON.stringify({})\n      };\n    } catch (e) {\n      console.error(e);\n      return {\n        statusCode: 200,\n        body: JSON.stringify(e.response)\n      };\n    }\n  }\n};\n\nconst needsVerify = event => {\n  if (event.queryStringParameters && event.queryStringParameters['hub.mode']) return true;\n  return false;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (fbWebhook);\n\n//# sourceURL=webpack:///./src/fbWebhook.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _webhookEvents_messagingMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./webhookEvents/messagingMessage */ \"./src/webhookEvents/messagingMessage.js\");\n/* harmony import */ var _webhookEvents_messagingPostbacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webhookEvents/messagingPostbacks */ \"./src/webhookEvents/messagingPostbacks.js\");\n\n\n\n // docClient\n\nlet docClientOptions = {\n  region: 'eu-west-1'\n};\n\nif (process.env.IS_OFFLINE) {\n  docClientOptions = {\n    region: 'localhost',\n    endpoint: 'http://localhost:8000'\n  };\n}\n\nconst fbWebhook = async (event, context) => {\n  // verify FB webhook\n  if (needsVerify(event)) return {\n    statusCode: 200,\n    body: event.queryStringParameters['hub.challenge']\n  };\n  const entries = JSON.parse(event.body).entry;\n\n  for (const entry of entries) {\n    const messaging = entry.messaging[0];\n    console.log(messaging);\n    const sender = messaging.sender; // messages\n\n    try {\n      if (messaging.message) await Object(_webhookEvents_messagingMessage__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(sender);\n      if (messaging.postback) await Object(_webhookEvents_messagingPostbacks__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(sender);\n      return {\n        statusCode: 200,\n        body: JSON.stringify({})\n      };\n    } catch (e) {\n      console.error(e);\n      return {\n        statusCode: 200,\n        body: JSON.stringify(e.response)\n      };\n    }\n  }\n};\n\nconst needsVerify = event => {\n  if (event.queryStringParameters && event.queryStringParameters['hub.mode']) return true;\n  return false;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (fbWebhook);\n\n//# sourceURL=webpack:///./src/fbWebhook.js?");
+
+/***/ }),
+
+/***/ "./src/graphql/mutations.js":
+/*!**********************************!*\
+  !*** ./src/graphql/mutations.js ***!
+  \**********************************/
+/*! exports provided: createUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createUser\", function() { return createUser; });\n/* harmony import */ var graphql_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! graphql-request */ \"graphql-request\");\n/* harmony import */ var graphql_request__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(graphql_request__WEBPACK_IMPORTED_MODULE_0__);\n\nconst client = new graphql_request__WEBPACK_IMPORTED_MODULE_0__[\"GraphQLClient\"]('https://uwl3s322de.execute-api.eu-west-1.amazonaws.com/dev/');\nconst CREATE_USER = `\n  mutation ( $psid: String! ) {\n    createUser( psid: $psid ) {\n      id\n    }\n  }\n`;\nconst createUser = psid => {\n  return client.request(CREATE_USER, {\n    psid\n  });\n};\n\n//# sourceURL=webpack:///./src/graphql/mutations.js?");
 
 /***/ }),
 
@@ -131,6 +143,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../messages */ \"./src/messages.js\");\n\n\nconst messagingMessage = async sender => {\n  try {\n    await Object(_messages__WEBPACK_IMPORTED_MODULE_0__[\"sendTextMsg\"])(sender.id, 'hello');\n    await Object(_messages__WEBPACK_IMPORTED_MODULE_0__[\"sendBtnMsg\"])(sender.id, 'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬', 'https://f87fbf4c.ngrok.io', 'Click para syncronizar');\n  } catch (e) {\n    throw e;\n  }\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (messagingMessage);\n\n//# sourceURL=webpack:///./src/webhookEvents/messagingMessage.js?");
+
+/***/ }),
+
+/***/ "./src/webhookEvents/messagingPostbacks.js":
+/*!*************************************************!*\
+  !*** ./src/webhookEvents/messagingPostbacks.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../messages */ \"./src/messages.js\");\n/* harmony import */ var _graphql_mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../graphql/mutations */ \"./src/graphql/mutations.js\");\n\n\n\nconst messagingPostbacks = async sender => {\n  await Object(_messages__WEBPACK_IMPORTED_MODULE_0__[\"sendTextMsg\"])(sender.id, 'Bienvenido!');\n  await Object(_graphql_mutations__WEBPACK_IMPORTED_MODULE_1__[\"createUser\"])(sender.id).catch(err => console.error(err)); // if user exists handle error\n\n  await Object(_messages__WEBPACK_IMPORTED_MODULE_0__[\"sendBtnMsg\"])(sender.id, 'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬', 'https://b3e53abc.ngrok.io', 'Click para syncronizar');\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (messagingPostbacks);\n\n//# sourceURL=webpack:///./src/webhookEvents/messagingPostbacks.js?");
 
 /***/ }),
 

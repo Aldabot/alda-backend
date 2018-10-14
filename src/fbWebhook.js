@@ -1,16 +1,7 @@
 'use strict';
-import { request, GraphQLClient } from 'graphql-request'
 import messagingMessage from './webhookEvents/messagingMessage'
+import messagingPostbacks from './webhookEvents/messagingPostbacks'
 
-const client = new GraphQLClient('https://uwl3s322de.execute-api.eu-west-1.amazonaws.com/dev/')
-const CREATE_USER = `
-  mutation ( $psid: String! ) {
-    createUser( psid: $psid ) {
-      id
-    }
-  }
-`
-// client.request(CREATE_USER, { psid: '123'}).then(res => console.log(res)).catch(err => console.error(err))
 
 // docClient
 let docClientOptions = {
@@ -25,7 +16,6 @@ if(process.env.IS_OFFLINE) {
 
 const fbWebhook = async (event, context) => {
   // verify FB webhook
-  console.log(event)
   if(needsVerify(event))
     return {
       statusCode: 200,
@@ -35,12 +25,16 @@ const fbWebhook = async (event, context) => {
   const entries = JSON.parse(event.body).entry
   for(const entry of entries) {
     const messaging = entry.messaging[0]
+    console.log(messaging)
     const sender = messaging.sender
 
     // messages
     try {
       if(messaging.message)
         await messagingMessage(sender)
+
+      if(messaging.postback)
+        await messagingPostbacks(sender)
 
       return {
         statusCode: 200,
