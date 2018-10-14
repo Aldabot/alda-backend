@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "alda-dialogflow": "^0.1.0",
-    "aws-sdk": "^2.329.0",
     "aws-serverless-express": "^3.3.5",
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
