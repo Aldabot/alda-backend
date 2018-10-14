@@ -6,7 +6,7 @@ const messagingMessage = async (sender) => {
     await sendBtnMsg(
       sender.id,
       'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-      'https://f87fbf4c.ngrok.io',
+      'https://6fcd19de.ngrok.io',
       'Click para syncronizar'
     )
   }

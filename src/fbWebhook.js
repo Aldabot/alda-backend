@@ -25,7 +25,6 @@ const fbWebhook = async (event, context) => {
   const entries = JSON.parse(event.body).entry
   for(const entry of entries) {
     const messaging = entry.messaging[0]
-    console.log(messaging)
     const sender = messaging.sender
 
     // messages

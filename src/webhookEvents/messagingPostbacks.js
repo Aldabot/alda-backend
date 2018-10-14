@@ -3,11 +3,16 @@ import { createUser } from '../graphql/mutations'
 
 const messagingPostbacks = async (sender) => {
   await sendTextMsg(sender.id, 'Bienvenido!')
-  await createUser(sender.id).catch(err => console.error(err)) // if user exists handle error
+  try {
+    await createUser(sender.id)
+  }
+  catch(e) {
+    console.error(e)
+  }
   await sendBtnMsg(
     sender.id,
     'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-    'https://b3e53abc.ngrok.io',
+    'https://6fcd19de.ngrok.io',
     'Click para syncronizar'
   )
 }
