@@ -7,12 +7,12 @@ const messagingPostbacks = async (sender) => {
     await createUser(sender.id)
   }
   catch(e) {
-    console.error(e)
+    console.error('create User failed', e)
   }
   await sendBtnMsg(
     sender.id,
     'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-    'https://6fcd19de.ngrok.io',
+    'https://7c9eabe2.ngrok.io',
     'Click para syncronizar'
   )
 }

@@ -13,6 +13,8 @@ custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+  serverless-offline:
+    port: 4000
 
 functions:
   fbWebhook:
@@ -30,5 +32,19 @@ functions:
       - http:
           method: POST
           path: dialogflow
+  graphqlServer:
+    handler: src/handler.graphqlServer
+    events:
+      - http:
+          method: POST
+          path: graphqlServer
+          cors: true
+  graphqlPlayground:
+    handler: src/handler.graphqlPlayground
+    events:
+      - http:
+          method: POST
+          path: graphqlPlayground
+          cors: true
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: './gcloud.json'

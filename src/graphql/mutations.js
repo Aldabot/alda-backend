@@ -1,6 +1,6 @@
 import { request, GraphQLClient } from 'graphql-request'
 
-const client = new GraphQLClient('https://uwl3s322de.execute-api.eu-west-1.amazonaws.com/dev/')
+const client = new GraphQLClient('http://localhost:4000/graphqlServer')
 
 const CREATE_USER = `
   mutation ( $psid: String! ) {
