@@ -1,5 +1,5 @@
-import { sendTextMsg, sendBtnMsg } from '../messages'
 import { createUser } from '../graphql/mutations'
+import { sendTextMsg, sendBtnMsg } from '../utils/messages'
 
 const messagingPostbacks = async (sender) => {
   await sendTextMsg(sender.id, 'Bienvenido!')
@@ -12,7 +12,7 @@ const messagingPostbacks = async (sender) => {
   await sendBtnMsg(
     sender.id,
     'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-    'https://7c9eabe2.ngrok.io',
+    'https://d103ecdb.ngrok.io',
     'Click para syncronizar'
   )
 }

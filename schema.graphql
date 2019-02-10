@@ -1,16 +1,17 @@
 type Query {
   getUser(psid: String!): User
+  getSaltedgeLoginStatus(loginId: String!): String
 }
 
 type Mutation {
   createUser(psid: String!): User
-  createSaltedgeCustomer(psid: String!): User
+  createSaltedgeCustomer(psid: String!): SaltedgeCustomer
   createSaltedgeLogin(
     psid: String!
     username: String!
     password: String!
     provider: String!
-  ): User
+  ): SaltedgeLogin
 }
 
 type User {
