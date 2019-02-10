@@ -26,11 +26,12 @@ const fbWebhook = async (event, context) => {
   for(const entry of entries) {
     const messaging = entry.messaging[0]
     const sender = messaging.sender
+    const message = messaging.message
 
     // messages
     try {
       if(messaging.message)
-        await messagingMessage(sender)
+        await messagingMessage(sender, message)
 
       if(messaging.postback)
         await messagingPostbacks(sender)
