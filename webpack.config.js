@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const slsw = require('serverless-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -19,16 +20,15 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: [
-                '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-proposal-export-default-from'
-              ]
-            }
           }
         ],
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: 'gcloud.json' },
+      { from: '.env' }
+    ])
+  ]
 };

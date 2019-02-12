@@ -1,5 +1,5 @@
 import fulfillment from 'alda-dialogflow'
-import handleDialogflow from '../utils/handleDialogflow'
+// import handleDialogflow from '../utils/handleDialogflow'
 import { sendTextMsg, sendBtnMsg } from '../utils/messages'
 import { hasValidSaltedgeLogin } from '../graphql/queries'
 
@@ -16,7 +16,7 @@ const messagingMessage = async (sender, message) => {
     }
 
     const res = await fulfillment(message.text, sender.id)
-    handleDialogflow(res, sender)
+    // handleDialogflow(res, sender)
 
   }
   catch(e) {
