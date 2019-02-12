@@ -10,5 +10,12 @@
 - go to facebook developers and add ngrok->4000/fbWebhook as webhook
 - go to facebook page and add webview ngrok->3000 to *whitelisted domains*
 
-# Dependencies
-- `./schema.graphql` from *alda-graphql-server*
+# Update
+To update the *alda-* repositories without publishing them before you can use the relative path of the local repository e.g. `yarn add ../alda-graphql-server'`
+
+# Deploy
+We need to compile the javascript code for *Node 8.10*, which is the current limitation of *AWS Lambda.* Therefore we run a docker image ( simulating a lambda environment ) build the code within the image and deploy it then via serverless.
+To accomplish all in one use `yarn deploy`.
+
+# Alda Dependencies
+- *alda-graphql-server*

@@ -1,6 +1,5 @@
 import { request, GraphQLClient } from 'graphql-request'
-
-const client = new GraphQLClient('http://localhost:4000/graphqlServer')
+import client from './client'
 
 const CREATE_USER = `
   mutation ( $psid: String! ) {

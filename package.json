@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "alda-dialogflow": "^0.5.0",
-    "alda-graphql-server": "^0.1.2",
+    "alda-graphql-server": "../alda-graphql-server",
     "aws-serverless-express": "^3.3.5",
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
