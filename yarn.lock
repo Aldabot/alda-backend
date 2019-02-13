@@ -899,8 +899,9 @@ alda-dialogflow@^0.5.0:
     dialogflow "0.3"
     dotenv "^6.2.0"
 
-alda-graphql-server@../alda-graphql-server:
-  version "0.1.7"
+alda-graphql-server@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/alda-graphql-server/-/alda-graphql-server-0.1.8.tgz#29c1a28a0ea6d13593d68678a2c5a7a0c9e0ca33"
   dependencies:
     alda-saltedge "^1.0.3"
     graphql-yoga "^1.17.4"

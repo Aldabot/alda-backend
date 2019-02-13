@@ -19,6 +19,8 @@ custom:
 functions:
   fbWebhook:
     handler: src/handler.fbWebhook
+    environment:
+      WEB_VIEW_URL: ${env:WEB_VIEW_URL}
     events:
       - http:
           method: POST

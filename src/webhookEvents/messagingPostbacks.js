@@ -12,7 +12,7 @@ const messagingPostbacks = async (sender) => {
   await sendBtnMsg(
     sender.id,
     'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
-    'https://d103ecdb.ngrok.io',
+    process.env.WEB_VIEW_URL,
     'Click para syncronizar'
   )
 }

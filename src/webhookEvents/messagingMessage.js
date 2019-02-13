@@ -13,6 +13,8 @@ const messagingMessage = async (sender, message) => {
         process.env.WEB_VIEW_URL,
         'Click para syncronizar'
       )
+
+      return
     }
 
     const res = await fulfillment(message.text, sender.id)

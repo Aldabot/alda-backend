@@ -22,7 +22,9 @@ const fbWebhook = async (event, context) => {
       body: event.queryStringParameters['hub.challenge']
     }
 
-  const entries = JSON.parse(event.body).entry
+  const body = JSON.parse(event.body)
+  const entries = body.entry
+  console.log(entries)
   for(const entry of entries) {
     const messaging = entry.messaging[0]
     const sender = messaging.sender

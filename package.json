@@ -1,15 +1,17 @@
 {
   "dependencies": {
     "alda-dialogflow": "^0.5.0",
-    "alda-graphql-server": "../alda-graphql-server",
+    "alda-graphql-server": "^0.1.8",
     "aws-serverless-express": "^3.3.5",
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
     "graphql-request": "^1.8.2"
   },
   "scripts": {
-    "deploy": "rm -rf node_modules && docker run -v $PWD:/var/task -w /var/task lambci/lambda:build-nodejs8.10 npm install && sls deploy",
-    "start": "sls offline"
+    "buildDocker": "docker build -t alda/backend-deploy .",
+    "deploy": "export $(xargs <.env) && rm -rf node_modules && docker run --rm -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e WEB_VIEW_URL alda/backend-deploy",
+    "start": "sls offline",
+    "fbLogs": "sls log -f fbWebhook -t"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
