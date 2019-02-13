@@ -3,6 +3,7 @@ import handleDialogflow from '../utils/handleDialogflow'
 import { sendTextMsg, sendBtnMsg } from '../utils/messages'
 import { hasValidSaltedgeLogin } from '../graphql/queries'
 
+console.log(process.env.WEB_VIEW_URL)
 const messagingMessage = async (sender, message) => {
   try {
     if(!(await hasValidSaltedgeLogin(sender.id))) {

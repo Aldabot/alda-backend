@@ -30,19 +30,12 @@ functions:
           path: fbWebhook
   graphqlServer:
     handler: src/handler.graphqlServer
+    environment:
+      SALTEDGE_SERVICE_ID: ${env:SALTEDGE_SERVICE_ID}
+      SALTEDGE_SERVICE_SECRET: ${env:SALTEDGE_SERVICE_SECRET}
+      PRISMA_ENDPOINT: ${env:PRISMA_ENDPOINT}
     events:
       - http:
           method: POST
           path: graphqlServer
-          cors: true
-  graphqlPlayground:
-    handler: src/handler.graphqlPlayground
-    events:
-      - http:
-          method: GET
-          path: graphqlPlayground
-          cors: true
-      - http:
-          method: POST
-          path: graphqlPlayground
           cors: true
