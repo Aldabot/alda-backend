@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "alda-dialogflow": "^0.5.0",
-    "alda-graphql-server": "^0.1.10",
+    "alda-graphql-server": "^0.1.11",
     "aws-serverless-express": "^3.3.5",
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "buildDocker": "docker build -t alda/backend-deploy .",
-    "deploy": "export $(xargs <.env) && rm -rf node_modules && docker run --rm -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e WEB_VIEW_URL alda/backend-deploy",
+    "deploy": "rm -rf node_modules && docker run --rm alda/backend-deploy",
     "start": "export $(xargs <.env) && sls offline",
     "fbLogs": "sls log -f fbWebhook -t"
   },

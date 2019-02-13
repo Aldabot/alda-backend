@@ -899,17 +899,17 @@ alda-dialogflow@^0.5.0:
     dialogflow "0.3"
     dotenv "^6.2.0"
 
-alda-graphql-server@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/alda-graphql-server/-/alda-graphql-server-0.1.10.tgz#ce9274e43beb0e4cebd628ad316828346c7053e6"
+alda-graphql-server@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/alda-graphql-server/-/alda-graphql-server-0.1.11.tgz#b545e10abf333a1a9100d3f6c287347e4f609443"
   dependencies:
-    alda-saltedge "^1.0.5"
+    alda-saltedge "^1.0.6"
     graphql-yoga "^1.17.4"
     prisma-client-lib "^1.18.0"
 
-alda-saltedge@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/alda-saltedge/-/alda-saltedge-1.0.5.tgz#ba0d38e60fd6a519435dd567fa05a4fca5160d44"
+alda-saltedge@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/alda-saltedge/-/alda-saltedge-1.0.6.tgz#87a2decea11c8eb81b037611f376584747ad8d97"
   dependencies:
     axios "^0.18.0"
 
