@@ -22,4 +22,7 @@ We need to compile the javascript code for *Node 8.10*, which is the current lim
 If the `.env` contains the aws credentials and the docker image is already build you can skip and directly deploy the lambdas with `yarn deploy`.
 
 # Alda Dependencies
-- *alda-graphql-server*
+- *alda-graphql-server**
+
+# Dialogflow
+**Important** *Url buttons* have to be given with protocol e.g. *https://google.com*.

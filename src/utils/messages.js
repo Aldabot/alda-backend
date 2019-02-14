@@ -30,6 +30,36 @@ export const sendBtnMsg = (recipientId, text, url, title) => {
   })
 }
 
+// Generic Template https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic
+export const sendCards = (recipientId, cards) => {
+  return axios({
+    method: 'post',
+    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
+    data: {
+      messaging_type: 'RESPONSE',
+      recipient: { id: recipientId },
+      message: {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'generic',
+            elements: cards.map(card => ({
+              title: card.title,
+              image_url: card.imageUri,
+              subtitle: card.subtitle,
+              buttons: card.buttons.map(button => ({
+                type: 'web_url',
+                url: button.postback,
+                title: button.text,
+              }))
+            }))
+          }
+        }
+      }
+    }
+  })
+}
+
 export const sendTextMsg = (recipientId, text) => {
   return axios({
     method: 'post',
