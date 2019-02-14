@@ -4,7 +4,10 @@ import { sendTextMsg } from '../utils/messages'
 const handleDialogflow = async (res, sender) => {
   if(res.length > 0) {
     const fulfillmentMessages = res[0].queryResult.fulfillmentMessages
-    for (const fMsg of fulfillmentMessages) {
+
+    // Only respond with messages for Facebook
+    const fbMessages = fulfillmentMessages.filter(msg => msg.platform === 'FACEBOOK')
+    for (const fMsg of fbMessages) {
       for (const text of fMsg.text.text) {
         await sendTextMsg(sender.id, text)
       }

@@ -10,7 +10,7 @@
   "scripts": {
     "buildDocker": "docker build -t alda/backend-deploy .",
     "deploy": "rm -rf node_modules && docker run --rm alda/backend-deploy",
-    "start": "export $(xargs <.env) && sls offline",
+    "start": "export $(xargs <.env) && yarn install && sls offline",
     "fbLogs": "sls log -f fbWebhook -t"
   },
   "devDependencies": {
