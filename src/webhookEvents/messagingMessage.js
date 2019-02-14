@@ -7,7 +7,6 @@ console.log(process.env.WEB_VIEW_URL)
 const messagingMessage = async (sender, message) => {
   try {
     if(!(await hasValidSaltedgeLogin(sender.id))) {
-      console.log('Not')
       await sendTextMsg(sender.id, 'hello')
       await sendBtnMsg(
         sender.id,
@@ -15,7 +14,6 @@ const messagingMessage = async (sender, message) => {
         process.env.WEB_VIEW_URL,
         'Click para syncronizar'
       )
-
 
       return
     }
