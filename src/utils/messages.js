@@ -1,10 +1,9 @@
 import axios from 'axios'
 
-
 export const sendBtnMsg = (recipientId, text, url, title) => {
   return axios({
     method: 'post',
-    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
+    url: `https://graph.facebook.com/v2.6/me/messages?access_token=${process.env.FB_PAGE_ACCESS_TOKEN}`,
     data: {
       messaging_type: 'RESPONSE',
       recipient: { id: recipientId },
@@ -34,7 +33,7 @@ export const sendBtnMsg = (recipientId, text, url, title) => {
 export const sendCards = (recipientId, cards) => {
   return axios({
     method: 'post',
-    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
+    url: `https://graph.facebook.com/v2.6/me/messages?access_token=${process.env.FB_PAGE_ACCESS_TOKEN}`,
     data: {
       messaging_type: 'RESPONSE',
       recipient: { id: recipientId },
@@ -63,7 +62,7 @@ export const sendCards = (recipientId, cards) => {
 export const sendTextMsg = (recipientId, text) => {
   return axios({
     method: 'post',
-    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
+    url: `https://graph.facebook.com/v2.6/me/messages?access_token=${process.env.FB_PAGE_ACCESS_TOKEN}`,
     data: {
       messaging_type: 'RESPONSE',
       recipient: { id: recipientId },
@@ -75,7 +74,7 @@ export const sendTextMsg = (recipientId, text) => {
 export const sendQuickReplies = (recipientId, title, quickReplyTexts) => {
   return axios({
     method: 'post',
-    url: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAIgFrVSjOcBAOHrZBvxGDdNdCrU17GW5UZC9gswziHskRS2nvF9xUam0wLXRNKPLMV0BuQdZAJjVYZCIEdoggEckhZAZAtuBo01YCQwaMDAZCYR6QjTGLieGpTcI6oi4JnHZA1QN9fk9OdTtfuINQgJvndFTZAfnydCYlCrdNMOKmwZDZD',
+    url: `https://graph.facebook.com/v2.6/me/messages?access_token=${process.env.FB_PAGE_ACCESS_TOKEN}`,
     data: {
       messaging_type: 'RESPONSE',
       recipient: { id: recipientId },

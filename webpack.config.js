@@ -28,6 +28,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       { from: 'gcloud.json' },
+      { from: 'alda-gcloud.json' },
       { from: '.env' }
     ])
   ]

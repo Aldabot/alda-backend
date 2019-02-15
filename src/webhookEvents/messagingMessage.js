@@ -7,7 +7,6 @@ console.log(process.env.WEB_VIEW_URL)
 const messagingMessage = async (sender, message) => {
   try {
     if(!(await hasValidSaltedgeLogin(sender.id))) {
-      await sendTextMsg(sender.id, 'hello')
       await sendBtnMsg(
         sender.id,
         'Hola, podemos chatear en cuando tu cuenta se ha syncronizado 🔒💬',
@@ -19,6 +18,7 @@ const messagingMessage = async (sender, message) => {
     }
 
     const res = await fulfillment(message.text, sender.id)
+    console.log(res[0].queryResult)
     handleDialogflow(res, sender)
   }
   catch(e) {

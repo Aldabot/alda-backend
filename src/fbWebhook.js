@@ -15,6 +15,7 @@ const fbWebhook = async (event, context) => {
 
   for(const entry of entries) {
     const messaging = entry.messaging[0]
+
     const sender = messaging.sender
     const message = messaging.message
 
@@ -33,10 +34,10 @@ const fbWebhook = async (event, context) => {
     }
 
     catch(e) {
-      console.error(e)
+      console.error(e.response.data)
       return {
         statusCode: 200,
-        body: JSON.stringify(e.response)
+        body: JSON.stringify()
       }
     }
   }

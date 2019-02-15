@@ -7,4 +7,5 @@ jspm_packages
 
 # credentials
 gcloud.json
+alda-gcloud.json
 .env
