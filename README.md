@@ -5,7 +5,7 @@
 
 # Run
 - start mysql-prisma docker: go to `cd alda-graphql-server/docker & docker-composer up`
-- start alda-backend: run `sls offline` in this repository
+- start alda-backend: run `yarn dev` in this repository
 - start webview: go to `cd alda-frontend & yarn start`
 - make services reachable from outside with ngrok: `ngrok http 4000` (alda-backend) and `ngrok http 3000` alda-frontend
 - go to facebook developers and add ngrok->4000/fbWebhook as webhook

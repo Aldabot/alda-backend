@@ -6,6 +6,5 @@ jspm_packages
 .serverless
 
 # credentials
-gcloud.json
-alda-gcloud.json
-.env
+*gcloud.json
+.env*

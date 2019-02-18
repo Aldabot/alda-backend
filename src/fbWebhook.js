@@ -10,6 +10,11 @@ const fbWebhook = async (event, context) => {
       body: event.queryStringParameters['hub.challenge']
     }
 
+  // return {
+  //   statusCode: 200,
+  //   body: JSON.stringify()
+  // }
+
   const body = JSON.parse(event.body)
   const entries = body.entry
 
