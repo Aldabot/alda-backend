@@ -6,9 +6,7 @@ const handleDialogflow = async (res, sender) => {
     const fulfillmentMessages = res[0].queryResult.fulfillmentMessages
     var cards = []
 
-    // Only respond with messages for Facebook
-    const fbMessages = fulfillmentMessages.filter(msg => msg.platform === 'FACEBOOK')
-    for (const fMsg of fbMessages) {
+    for (const fMsg of fulfillmentMessages) {
       // chk if Card
       if(fMsg.card)  {
         console.log(fMsg.card)
