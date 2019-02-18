@@ -1,6 +1,8 @@
 'use strict';
 import messagingMessage from './webhookEvents/messagingMessage'
 import messagingPostbacks from './webhookEvents/messagingPostbacks'
+import { getUser } from './graphql/queries'
+import { createUser } from './graphql/mutations'
 
 const fbWebhook = async (event, context) => {
   // verify FB webhook
@@ -10,21 +12,19 @@ const fbWebhook = async (event, context) => {
       body: event.queryStringParameters['hub.challenge']
     }
 
-
-  // return {
-  //   statusCode: 200,
-  //   body: JSON.stringify()
-  // }
-
   const body = JSON.parse(event.body)
   const entries = body.entry
 
   for(const entry of entries) {
     const messaging = entry.messaging[0]
-    console.log(messaging)
 
     const sender = messaging.sender
     const message = messaging.message
+
+    const user = await getUser(sender.id)
+
+    if(!user) // if user with psid does not exist => create
+      await createUser(sender.id)
 
     // messages
     try {
