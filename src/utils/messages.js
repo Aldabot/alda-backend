@@ -26,7 +26,7 @@ export const sendBtnMsg = (recipientId, text, url, title) => {
         }
       }
     }
-  })
+  }).catch(error => console.error(error.response))
 }
 
 // Generic Template https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic
@@ -56,7 +56,7 @@ export const sendCards = (recipientId, cards) => {
         }
       }
     }
-  })
+  }).catch(error => console.error(error.response))
 }
 
 export const sendTextMsg = (recipientId, text) => {
@@ -68,7 +68,7 @@ export const sendTextMsg = (recipientId, text) => {
       recipient: { id: recipientId },
       message: { text }
     }
-  })
+  }).catch(error => console.error(error.response))
 }
 
 export const sendQuickReplies = (recipientId, title, quickReplyTexts) => {
@@ -87,5 +87,5 @@ export const sendQuickReplies = (recipientId, title, quickReplyTexts) => {
         }))
       }
     }
-  })
+  }).catch(error => console.error(error.response))
 }

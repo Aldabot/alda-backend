@@ -8,9 +8,12 @@
     "graphql-request": "^1.8.2"
   },
   "scripts": {
-    "buildDocker": "docker build -t alda/backend-deploy .",
-    "deploy": "rm -rf node_modules && docker run --rm alda/backend-deploy",
-    "dev": "export $(xargs <.env.dev) && yarn install && sls offline",
+    "prepareDev": "cp dev-gcloud.json gcloud.json && cp .env.dev .env",
+    "prepareProd": "cp prod-gcloud.json gcloud.json && cp .env.prod .env",
+    "buildDockerImage": "docker build -t alda/backend-deploy .",
+    "deploy": "yarn prepareProd && yarn buildDockerImage && rm -rf node_modules && docker run --rm alda/backend-deploy",
+    "dev": "yarn prepareDev && export $(xargs <.env) && yarn install && sls offline",
+    "start": "yarn prepareProd && export $(xargs <.env) && yarn install && sls offline",
     "fbLogs": "sls log -f fbWebhook -t"
   },
   "devDependencies": {

@@ -27,10 +27,8 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([
-      { from: 'dev-gcloud.json' },
-      { from: 'prod-gcloud.json' },
-      { from: '.env.dev' },
-      { from: '.env.prod' }
+      { from: 'gcloud.json' },
+      { from: '.env' },
     ])
   ]
 };

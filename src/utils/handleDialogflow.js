@@ -9,7 +9,6 @@ const handleDialogflow = async (res, sender) => {
     for (const fMsg of fulfillmentMessages) {
       // chk if Card
       if(fMsg.card)  {
-        console.log(fMsg.card)
         cards.push(fMsg.card)
         continue
       }

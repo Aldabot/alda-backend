@@ -18,6 +18,7 @@ const messagingMessage = async (sender, message) => {
     }
 
     const res = await fulfillment(message.text, sender.id)
+    console.log('here2', res)
     handleDialogflow(res, sender)
   }
   catch(e) {
